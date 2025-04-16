@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
-        MAVEN_HOME = '/path/to/maven'  // Buraya Maven'ın doğru kurulu olduğu yolu belirtin
     }
 
     stages {
