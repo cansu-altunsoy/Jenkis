@@ -1,9 +1,13 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven_3.9.9'  // Jenkins global tool config'deki Maven ismi
+        jdk 'JDK_17'         // Jenkins global tool config'deki JDK ismi
+    }
+
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
-        MAVEN_HOME = 'C:\\Program Files\\apache-maven-3.9.9'  // Maven'ın doğru yolu
     }
 
     stages {
