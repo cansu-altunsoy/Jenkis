@@ -15,7 +15,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo 'Running Maven tests with tag @test03'
-                bat "mvn clean test -Dcucumber.filter.tags='@test03'"
+                bat "mvn clean test"
             }
         }
 
