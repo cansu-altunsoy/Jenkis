@@ -1,0 +1,3 @@
+2025-04-17 01:00:22 [main] INFO  runners.TestRunner - Cucumber Test Runner başlatılıyor...
+2025-04-17 01:00:22 [main] INFO  utilities.LoggerHelper - Test Başlıyor: Verify footer is visible on the homepage
+2025-04-17 01:00:25 [main] INFO  utilities.LoggerHelper - Driver başlatıldı
