@@ -1,4 +1,4 @@
-@test01
+@test03
 Feature: As a user I should be able to access the home page
 
   Scenario: [US_001 => TC-01] The user should be able to successfully access the homepage.
