@@ -1,10 +1,12 @@
-@google
+
 Feature: BuySellCycle Footer Functionality - US_016
+
 
   Background:
     Given User is on the login page
     When User enters valid credentials and clicks login
 
+    @test01
   Scenario: Verify footer is visible on the homepage
     When User scrolls to the bottom of the page
     Then Footer section should be visible

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        RECIPIENT = 'oguzhanmguclu@gmail.com'
+        RECIPIENT = 'sezginmertt@yahoo.com'
         GIT_CREDENTIALS_ID = 'dc56b904-2c60-4991-91e7-e86def0e981b'
         TARGET_BRANCH = 'master'
         REPO_URL = 'https://github.com/cansu-altunsoy/Jenkis.git'
