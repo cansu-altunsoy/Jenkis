@@ -17,8 +17,8 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                echo 'Running Maven tests with @test01'
-                bat 'mvn clean install -Dgroups=test01'
+                echo 'Running Maven tests with @test05'
+                bat 'mvn clean install -Dgroups=test05'
             }
         }
 

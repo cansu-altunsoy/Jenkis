@@ -1,6 +1,6 @@
 Feature: As a user, you can test a page on the site that includes daily special discounts and campaigns.
 
-  @google
+  @test05
   Scenario: [US_012 => TC_001] Testing the visibility and functionality of the "Daily Deals" menu in the NavBar
     Given Registered user goes to the relevant url
     When Enter the requested information on the login page and log in.
@@ -9,7 +9,7 @@ Feature: As a user, you can test a page on the site that includes daily special 
     And Access to the Daily Deals page is confirmed.
 
 
-  @google
+  @test05
   Scenario: [US_012 => TC_002] Test counter visibility on Daily Deals page
     Given Registered user goes to the relevant url
     When Enter the requested information on the login page and log in.
@@ -17,7 +17,7 @@ Feature: As a user, you can test a page on the site that includes daily special 
     Then Click Daily Deals on the homepage navbar
     And Verify that there is a counter on the Daily Deals page
 
-  @google
+  @test05
   Scenario: [US_012 => TC_003] Testing the visibility of promotional products on the Daily Deals page
     Given Registered user goes to the relevant url
     When Enter the requested information on the login page and log in.
