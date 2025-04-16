@@ -2,57 +2,48 @@ pipeline {
     agent any
 
     environment {
-        RECIPIENT = 'oguzhanmguclu@gmail.com'
-        GIT_CREDENTIALS_ID = 'dc56b904-2c60-4991-91e7-e86def0e981b'
-        TARGET_BRANCH = 'master'
-        REPO_URL = 'https://github.com/cansu-altunsoy/Jenkis.git'
+        MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: "${env.GIT_CREDENTIALS_ID}", url: "${env.REPO_URL}", branch: "${env.TARGET_BRANCH}"
+                git url: 'https://github.com/cansu-altunsoy/Jenkis.git', credentialsId: 'dc56b904-2c60-4991-91e7-e86def0e981b'
             }
         }
 
         stage('Build & Test') {
             steps {
-                echo 'Running Cucumber tests tagged with @test03'
-                bat 'mvn clean test -Dcucumber.filter.tags=@test03'
+                echo 'Running Maven tests with tag @test03'
+                bat "mvn clean test -Dcucumber.filter.tags=@test03"
+            }
+        }
+
+        stage('Generate Allure Report') {
+            steps {
+                allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
             }
         }
 
         stage('Push to GitHub') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
             steps {
                 echo 'Tests passed, pushing to GitHub...'
-                withCredentials([usernamePassword(credentialsId: "${env.GIT_CREDENTIALS_ID}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'dc56b904-2c60-4991-91e7-e86def0e981b', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
                     bat """
                         git config --global user.email "jenkins@example.com"
                         git config --global user.name "Jenkins CI"
-                        git remote set-url origin https://${env.GIT_USER}:${env.GIT_PASS}@github.com/cansu-altunsoy/Jenkis.git
+                        git remote set-url origin https://${GIT_USER}:${GIT_PASS}@github.com/cansu-altunsoy/Jenkis.git
                         git add .
                         git commit -m "Automated commit by Jenkins after successful build" || echo "Nothing to commit"
-                        git push origin ${env.TARGET_BRANCH}
+                        git push origin master
                     """
                 }
             }
         }
     }
-
     post {
-        failure {
-            mail to: "${env.RECIPIENT}",
-                 subject: "🚨 Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: """\
-Build başarısız oldu.
-
-Detaylar: ${env.BUILD_URL}console
-"""
+        always {
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }
