@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         MAVEN_OPTS = '-Dmaven.test.failure.ignore=false'
-        MAVEN_HOME = '/path/to/maven'  // Buraya Maven'ın doğru kurulu olduğu yolu belirtin
+        MAVEN_HOME = 'C:\\Program Files\\apache-maven-3.9.9'  // Maven'ın doğru kurulum yolu
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17'  // Java'nın doğru kurulum yolu
     }
 
     stages {
@@ -16,7 +17,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo 'Running Maven tests with tag @test03'
-                bat "mvn clean test"
+                bat "mvn clean test -Dcucumber.filter.tags='@test03'"
             }
         }
 
