@@ -12,6 +12,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <!-- Cucumber tag'i doğru şekilde geçildi -->
         <cucumber.filter.tags>@test03</cucumber.filter.tags>
     </properties>
 
@@ -76,7 +77,7 @@
                         <include>**/*Test.java</include>
                     </includes>
                     <systemPropertyVariables>
-                        <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+                        <cucumber.filter.tags>@test03</cucumber.filter.tags>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

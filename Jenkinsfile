@@ -15,7 +15,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo 'Running Maven tests with tag @test03'
-                bat "mvn clean test -Dcucumber.filter.tags=@test03"
+                bat "mvn clean test -Dcucumber.filter.tags='@test03'"
             }
         }
 
@@ -43,8 +43,7 @@ pipeline {
     }
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            junit 'target/surefire-reports/*.xml' // Surefire raporlarını al
         }
     }
 }
-

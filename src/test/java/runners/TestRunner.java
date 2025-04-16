@@ -9,16 +9,16 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "src/test/java/features", // Feature dosyalarının yolu
-		glue = "stepDefinitions",                // Step Definitions'ın yolu
+		features = "src/test/resources/features", // feature dosyalarının doğru yolu
+		glue = "stepDefinitions",                 // step definitions'ın doğru yolu
 		plugin = {
-				"pretty",                         // Konsolda okunabilir loglar
-				"html:target/cucumber-reports/cucumber.html", // Cucumber HTML raporu
-				"json:target/cucumber-reports/cucumber.json", // JSON raporu (Cucumber HTML için gerekli)
-				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" // Allure raporları için plugin
+				"pretty",                          // Konsolda okunabilir loglar
+				"html:target/cucumber-reports/cucumber.html", // HTML raporu
+				"json:target/cucumber-reports/cucumber.json", // JSON raporu
+				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" // Allure raporları
 		},
 		monochrome = true,                         // Konsol çıktısını daha okunabilir hale getirir
-		tags = "@test03"                            // Yalnızca belirtilen etiketli senaryolar çalıştırılır
+		tags = "@test03"                            // Yalnızca test03 etiketi olan senaryoları çalıştırır
 )
 public class TestRunner {
 	private static final Logger logger = LogManager.getLogger(TestRunner.class);
@@ -28,5 +28,4 @@ public class TestRunner {
 		// Test çalışmaya başlamadan önce loglama yapılır
 		logger.info("Cucumber Test Runner başlatılıyor...");
 	}
-
 }
