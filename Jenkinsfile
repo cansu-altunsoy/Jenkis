@@ -1,58 +1,50 @@
 pipeline {
     agent any
-
-    environment {
-        RECIPIENT = 'sezginmertt@yahoo.com'
-        GIT_CREDENTIALS_ID = 'dc56b904-2c60-4991-91e7-e86def0e981b'
-        TARGET_BRANCH = 'master'
-        REPO_URL = 'https://github.com/cansu-altunsoy/Jenkis.git'
+    tools {
+        MAVEN_HOME 'Maven 3.9.9'
+        JAVA_HOME 'JDK 17'
     }
-
+    environment {
+        MAVEN_OPTS = "-Dmaven.test.failure.ignore=true"
+    }
+    triggers {
+        cron('49 23 * * *')  // Her akşam 23:40'da otomatik çalışır
+    }
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: "${env.GIT_CREDENTIALS_ID}", url: "${env.REPO_URL}", branch: "${env.TARGET_BRANCH}"
+                git 'https://github.com/cansu-altunsoy/Jenkis.git'
             }
         }
-
-        stage('Build & Test') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Running Maven tests with @test05'
-                bat 'mvn clean install -Dgroups=test05'
+                sh 'mvn clean install -DskipTests'
             }
         }
-
-        stage('Push to GitHub') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
+        stage('Run Tests') {
             steps {
-                echo 'Tests passed, pushing to GitHub...'
-                withCredentials([usernamePassword(credentialsId: "${env.GIT_CREDENTIALS_ID}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
-                    bat """
-                        git config --global user.email "jenkins@example.com"
-                        git config --global user.name "Jenkins CI"
-                        git remote set-url origin https://${env.GIT_USER}:${env.GIT_PASS}@github.com/cansu-altunsoy/Jenkis.git
-                        git add .
-                        git commit -m "Automated commit by Jenkins after successful build" || echo "Nothing to commit"
-                        git push origin ${env.TARGET_BRANCH}
-                    """
-                }
+                sh 'mvn test'
+            }
+        }
+        stage('Allure Report') {
+            steps {
+                sh 'mvn allure:report'
+            }
+        }
+        stage('Publish Allure Report') {
+            steps {
+                allure includeProperties: false, jdk: '', reportBuildPolicy: 'ALWAYS'
             }
         }
     }
-
     post {
+        always {
+            junit '**/target/surefire-reports/*.xml'
+        }
         failure {
-            mail to: "${env.RECIPIENT}",
-                 subject: "🚨 Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: """\
-Build başarısız oldu.
-
-Detaylar: ${env.BUILD_URL}console
-"""
+            mail to: 'sezginmertt@gmail.com',
+                 subject: "❌ Build Failed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Something went wrong!\n\nCheck it here: ${env.BUILD_URL}"
         }
     }
 }
