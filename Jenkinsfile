@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.9.9'  // Jenkins'te tanımlı bir Maven versiyonu
-        jdk 'Java 17'        // JDK versiyonu sizin projeye göre
+        MAVEN_HOME 'Maven 3.9.9'  // Jenkins'te tanımlı bir Maven versiyonu
+        JAVA_HOME 'Java 17'        // JDK versiyonu sizin projeye göre
     }
 
     stages {
