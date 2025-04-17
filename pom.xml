@@ -4,6 +4,7 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org.example</groupId>
     <artifactId>com.BuySellCycle</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -15,23 +16,30 @@
     </properties>
 
     <dependencies>
+        <!-- Selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.0.0</version> <!-- Selenium 4.x sürümü -->
+        </dependency>
+
         <!-- Cucumber -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>7.14.0</version>
+            <version>7.14.0</version> <!-- Cucumber Java sürümü -->
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>7.14.0</version>
+            <version>7.14.0</version> <!-- Cucumber JUnit sürümü -->
         </dependency>
 
         <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>4.13.2</version> <!-- JUnit 4 sürümü -->
             <scope>test</scope>
         </dependency>
 
@@ -39,31 +47,31 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
-            <version>2.25.0</version>
+            <version>2.25.0</version> <!-- Allure raporlama bağımlılığı -->
         </dependency>
 
         <!-- Log4j -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.20.0</version>
+            <version>2.20.0</version> <!-- Log4j bağımlılığı -->
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.20.0</version>
+            <version>2.20.0</version> <!-- Log4j API bağımlılığı -->
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Compiler -->
+            <!-- Compiler Plugin -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
             </plugin>
 
-            <!-- Surefire Plugin (JUnit 4) -->
+            <!-- Surefire Plugin for JUnit Tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -75,7 +83,7 @@
                         <include>**/*Test.java</include>
                     </includes>
                     <systemPropertyVariables>
-                        <cucumber.filter.tags>@test03</cucumber.filter.tags> <!-- Bu etiketi burada tutabilirsiniz -->
+                        <cucumber.filter.tags>@smoke</cucumber.filter.tags> <!-- Belirli tag ile testleri çalıştırma -->
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -85,6 +93,13 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.11.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>serve</goal>  <!-- Allure raporlarını oluşturmak için -->
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

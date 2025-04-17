@@ -1,4 +1,4 @@
-@test02
+
 Feature: As a user, I would like to be able to log in with the email and password I registered with the site.
 
   Scenario: [US_005 => TC-01] It is checked whether the login link in the top bar of the homepage is visible and active.
@@ -66,7 +66,7 @@ Feature: As a user, I would like to be able to log in with the email and passwor
     Then  the user checks for error messages
     When  The user closes the browser.
 
-
+@smoke @E2E
   Scenario: [US_005 => TC-09] Check if a successful login occurs when the
   SignIn button is clicked with valid credentials.
 
