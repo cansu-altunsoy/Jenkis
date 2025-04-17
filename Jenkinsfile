@@ -2,33 +2,33 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven_3.9.9' // Jenkins global tool config'deki ismi bu olmalı
-        jdk 'JDK_17' // Eğer JDK gerekiyorsa
+        maven 'Maven 3.9.9'  // Jenkins'te tanımlı bir Maven versiyonu
+        jdk 'Java 17'        // JDK versiyonu sizin projeye göre
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/cansu-altunsoy/Jenkis.git'
+                git branch: 'main', url: 'https://github.com/cansu-altunsoy/Jenkis.git'
             }
         }
 
-        stage('Build') {
+        stage('Run Tests') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean test'
             }
         }
 
-        stage('Test') {
+        stage('Generate Allure Report') {
             steps {
-                sh 'mvn test'
+                allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
             }
         }
     }
 
     post {
         always {
-            junit '**/target/surefire-reports/*.xml'
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }
