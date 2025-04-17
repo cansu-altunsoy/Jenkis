@@ -1,3 +1,6 @@
 2025-04-17 01:00:22 [main] INFO  runners.TestRunner - Cucumber Test Runner başlatılıyor...
 2025-04-17 01:00:22 [main] INFO  utilities.LoggerHelper - Test Başlıyor: Verify footer is visible on the homepage
 2025-04-17 01:00:25 [main] INFO  utilities.LoggerHelper - Driver başlatıldı
+2025-04-17 14:05:56 [main] INFO  runners.TestRunner - Cucumber Test Runner başlatılıyor...
+2025-04-17 14:05:57 [main] INFO  utilities.LoggerHelper - Test Başlıyor: [US_012 => TC_001] Testing the visibility and functionality of the "Daily Deals" menu in the NavBar
+2025-04-17 14:05:59 [main] INFO  utilities.LoggerHelper - Driver başlatıldı
